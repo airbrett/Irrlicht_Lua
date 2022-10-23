@@ -1,0 +1,9 @@
+Irrlicht-svn
+lua-5.4.4
+Chipmunk-7.0.3
+moonchipmunk-d1963dd
+openal-soft-1.22.2
+moonal-43d515a
+boost-1.80.0
+assimp-5.2.5
+IrrAssimp-daba836
