@@ -45,6 +45,7 @@ void CreateObjTable(lua_State* L, T* Obj)
 	//lua_setfield(L, -2, "type");
 }
 
+irr::core::vector3df to_vector3df(lua_State* L, const int n);
 irr::core::vector3df check_vector3df(lua_State* L, const int n);
 void push_vector3df(lua_State* L, irr::core::vector3df vec);
 irr::core::vector2df check_vector2df(lua_State* L, const int n);
@@ -66,6 +67,9 @@ void push_aabbox3df(lua_State* L, const irr::core::aabbox3d<irr::f32>& bb);
 #define is_s32(L, n) lua_isinteger(L, n)
 #define is_u32(L, n) lua_isinteger(L, n)
 #define is_f32(L, n) lua_isnumber(L, n)
+#define to_s32(L, n) lua_tointeger(L, n)
+#define to_u32(L, n) lua_tointeger(L, n)
+#define to_f32(L, n) lua_tonumber(L, n)
 
 char* wchar_to_char(const wchar_t* pwchar);
 const wchar_t* char_to_wchar(const char* c);

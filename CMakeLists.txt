@@ -45,6 +45,8 @@ add_library(irrlicht_lua SHARED
 	lua_ITimer.cpp
 	lua_IVideoDriver.h
 	lua_IVideoDriver.cpp
+	lua_matrix4.h
+	lua_matrix4.cpp
 	lua_Plane.h
 	lua_Plane.cpp
 	lua_util.h

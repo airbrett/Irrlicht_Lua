@@ -2,6 +2,7 @@
 
 #include "SceneNodeAnimator.h"
 #include "lua_util.h"
+#include "lua_matrix4.h"
 
 const static char* MetaTableName = "__ISceneNode_meta";
 
@@ -21,6 +22,7 @@ static int getChild(lua_State* L);
 static int getNumChildren(lua_State* L);
 static int getName(lua_State* L);
 static int getBoundingBox(lua_State* L);
+static int getAbsoluteTransformation(lua_State* L);
 
 void init_ISceneNode(lua_State* L)
 {
@@ -90,6 +92,9 @@ void fill_ISceneNode(lua_State* L)
 
 	lua_pushcfunction(L, getBoundingBox);
 	lua_setfield(L, -2, "getBoundingBox");
+
+	lua_pushcfunction(L, getAbsoluteTransformation);
+	lua_setfield(L, -2, "getAbsoluteTransformation");
 }
 
 int setPosition(lua_State* L)
@@ -192,5 +197,13 @@ int getName(lua_State* L)
 int getBoundingBox(lua_State* L)
 {
 	push_aabbox3df(L, GetObjPtr<irr::scene::ISceneNode>(L)->getBoundingBox());
+	return 1;
+}
+
+int getAbsoluteTransformation(lua_State* L)
+{
+	irr::core::matrix4* mat = new irr::core::matrix4;
+	*mat = GetObjPtr<irr::scene::ISceneNode>(L)->getAbsoluteTransformation();
+	push_matrix4(L, mat);
 	return 1;
 }

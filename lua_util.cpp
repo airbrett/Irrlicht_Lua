@@ -1,10 +1,8 @@
 #include "lua_util.h"
 
-irr::core::vector3df check_vector3df(lua_State* L, const int n)
+irr::core::vector3df to_vector3df(lua_State* L, const int n)
 {
 	irr::core::vector3df vec;
-
-	luaL_checktype(L, n, LUA_TTABLE);
 
 	lua_getfield(L, n, "X");
 	vec.X = static_cast<float>(luaL_checknumber(L, -1));
@@ -19,6 +17,13 @@ irr::core::vector3df check_vector3df(lua_State* L, const int n)
 	lua_pop(L, 1);
 
 	return vec;
+}
+
+irr::core::vector3df check_vector3df(lua_State* L, const int n)
+{
+	luaL_checktype(L, n, LUA_TTABLE);
+
+	return to_vector3df(L, n);
 }
 
 void push_vector3df(lua_State* L, irr::core::vector3df vec)

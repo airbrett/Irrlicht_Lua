@@ -24,6 +24,6 @@ int setAttenuation(lua_State* L)
 
 int setRadius(lua_State* L)
 {
-	GetObjPtr<irr::scene::ILightSceneNode>(L)->getLightData().Radius = luaL_checknumber(L, 2);
+	GetObjPtr<irr::scene::ILightSceneNode>(L)->getLightData().Radius = check_f32(L, 2);
 	return 0;
 }

@@ -8,6 +8,7 @@
 #include "lua_IMeshBuffer.h"
 #include "lua_ICameraSceneNode.h"
 #include "lua_IrrAssimp.h"
+#include "lua_matrix4.h"
 
 #include <irrlicht.h>
 
@@ -52,6 +53,7 @@ extern "C" IRRLICHT_LUA_EXPORT int luaopen_irrlicht_lua(lua_State* L)
 	//core
 	lua_createtable(L, 0, 4);
 	init_Plane(L);
+	init_matrix4(L);
 	lua_setfield(L, -2, "core");
 
 	//video
