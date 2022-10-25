@@ -19,7 +19,7 @@ int getMesh(lua_State* L)
 {
 	irr::scene::IAnimatedMesh* Mesh = GetObjPtr<irr::scene::IAnimatedMesh>(L);
 
-	const int frame = luaL_checkinteger(L, 2);
+	const irr::s32 frame = static_cast<irr::s32>(luaL_checkinteger(L, 2));
 
 	push_IMesh(L, Mesh->getMesh(frame));
 

@@ -114,7 +114,7 @@ irr::video::SColor check_scolor(lua_State* L, const int n)
 
 void push_scolor(lua_State* L, irr::video::SColor vec)
 {
-	lua_createtable(L, 0, 3);
+	lua_createtable(L, 0, 4);
 
 	lua_pushinteger(L, vec.getAlpha());
 	lua_setfield(L, -2, "a");
@@ -169,6 +169,16 @@ bool check_boolean(lua_State* L, const int n)
 		lua_error(L);
 
 	return lua_toboolean(L, n);
+}
+
+void push_aabbox3df(lua_State* L, const irr::core::aabbox3d<irr::f32>& bb)
+{
+	lua_createtable(L, 0, 4);
+
+	push_vector3df(L, bb.MinEdge);
+	lua_setfield(L, -2, "MinEdge");
+	push_vector3df(L, bb.MaxEdge);
+	lua_setfield(L, -2, "MaxEdge");
 }
 
 char* wchar_to_char(const wchar_t* wc)

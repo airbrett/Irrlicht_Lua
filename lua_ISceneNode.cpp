@@ -20,6 +20,7 @@ static int remove(lua_State* L);
 static int getChild(lua_State* L);
 static int getNumChildren(lua_State* L);
 static int getName(lua_State* L);
+static int getBoundingBox(lua_State* L);
 
 void init_ISceneNode(lua_State* L)
 {
@@ -86,6 +87,9 @@ void fill_ISceneNode(lua_State* L)
 
 	lua_pushcfunction(L, getName);
 	lua_setfield(L, -2, "getName");
+
+	lua_pushcfunction(L, getBoundingBox);
+	lua_setfield(L, -2, "getBoundingBox");
 }
 
 int setPosition(lua_State* L)
@@ -169,7 +173,7 @@ int remove(lua_State* L)
 int getChild(lua_State* L)
 {
 	const irr::core::list<irr::scene::ISceneNode*> Children = GetObjPtr<irr::scene::ISceneNode>(L)->getChildren();
-	push_ISceneNode(L, *(Children.begin() + static_cast<irr::s32>(luaL_checkinteger(L, 2))));
+	push_ISceneNode(L, *(Children.begin() + check_s32(L, 2)));
 	return 1;
 }
 
@@ -182,5 +186,11 @@ int getNumChildren(lua_State* L)
 int getName(lua_State* L)
 {
 	lua_pushstring(L, GetObjPtr<irr::scene::ISceneNode>(L)->getName());
+	return 1;
+}
+
+int getBoundingBox(lua_State* L)
+{
+	push_aabbox3df(L, GetObjPtr<irr::scene::ISceneNode>(L)->getBoundingBox());
 	return 1;
 }

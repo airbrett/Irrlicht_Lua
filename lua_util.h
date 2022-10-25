@@ -56,6 +56,16 @@ void push_scolor(lua_State* L, irr::video::SColor vec);
 irr::video::SColorf check_scolorf(lua_State* L, const int n);
 irr::core::dimension2d<irr::u32> check_dimension2d(lua_State* L, const int n);
 bool check_boolean(lua_State* L, const int n);
+void push_aabbox3df(lua_State* L, const irr::core::aabbox3d<irr::f32>& bb);
+
+#define push_s32(L, n) lua_pushinteger(L, n)
+#define push_f32 lua_pushnumber(L, n)
+#define check_s32(L, n) static_cast<irr::s32>(luaL_checkinteger(L, n))
+#define check_u32(L, n) static_cast<irr::u32>(luaL_checkinteger(L, n))
+#define check_f32(L, n) static_cast<irr::f32>(luaL_checknumber(L, n))
+#define is_s32(L, n) lua_isinteger(L, n)
+#define is_u32(L, n) lua_isinteger(L, n)
+#define is_f32(L, n) lua_isnumber(L, n)
 
 char* wchar_to_char(const wchar_t* pwchar);
 const wchar_t* char_to_wchar(const char* c);
