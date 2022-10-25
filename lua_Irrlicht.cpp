@@ -7,6 +7,7 @@
 #include "lua_util.h"
 #include "lua_IMeshBuffer.h"
 #include "lua_ICameraSceneNode.h"
+#include "lua_IrrAssimp.h"
 
 #include <irrlicht.h>
 
@@ -40,6 +41,7 @@ extern "C" IRRLICHT_LUA_EXPORT int luaopen_irrlicht_lua(lua_State* L)
 	lua_pushcfunction(L, createDevice);
 	lua_setfield(L, -2, "createDevice");
 
+	init_IrrAssimp(L);
 	
 	lua_pushinteger(L, irr::EET_MOUSE_INPUT_EVENT);
 	lua_setfield(L, -2, "EET_MOUSE_INPUT_EVENT");

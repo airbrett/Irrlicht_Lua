@@ -17,6 +17,9 @@ static int addChild(lua_State* L);
 static int setDebugDataVisible(lua_State* L);
 static int setMaterialGouraudShading(lua_State* L);
 static int remove(lua_State* L);
+static int getChild(lua_State* L);
+static int getNumChildren(lua_State* L);
+static int getName(lua_State* L);
 
 void init_ISceneNode(lua_State* L)
 {
@@ -74,6 +77,15 @@ void fill_ISceneNode(lua_State* L)
 
 	lua_pushcfunction(L, remove);
 	lua_setfield(L, -2, "remove");
+
+	lua_pushcfunction(L, getChild);
+	lua_setfield(L, -2, "getChild");
+
+	lua_pushcfunction(L, getNumChildren);
+	lua_setfield(L, -2, "getNumChildren");
+
+	lua_pushcfunction(L, getName);
+	lua_setfield(L, -2, "getName");
 }
 
 int setPosition(lua_State* L)
@@ -144,12 +156,31 @@ int setMaterialGouraudShading(lua_State* L)
 {
 	const irr::u32 MatNum = static_cast<irr::u32>(luaL_checkinteger(L, 2));
 
-	GetObjPtr<irr::scene::IAnimatedMeshSceneNode>(L)->getMaterial(MatNum).GouraudShading = check_boolean(L, 3);
+	GetObjPtr<irr::scene::ISceneNode>(L)->getMaterial(MatNum).GouraudShading = check_boolean(L, 3);
 	return 0;
 }
 
 int remove(lua_State* L)
 {
-	GetObjPtr<irr::scene::IAnimatedMeshSceneNode>(L)->remove();
+	GetObjPtr<irr::scene::ISceneNode>(L)->remove();
 	return 0;
+}
+
+int getChild(lua_State* L)
+{
+	const irr::core::list<irr::scene::ISceneNode*> Children = GetObjPtr<irr::scene::ISceneNode>(L)->getChildren();
+	push_ISceneNode(L, *(Children.begin() + static_cast<irr::s32>(luaL_checkinteger(L, 2))));
+	return 1;
+}
+
+int getNumChildren(lua_State* L)
+{
+	lua_pushinteger(L, GetObjPtr<irr::scene::ISceneNode>(L)->getChildren().size());
+	return 1;
+}
+
+int getName(lua_State* L)
+{
+	lua_pushstring(L, GetObjPtr<irr::scene::ISceneNode>(L)->getName());
+	return 1;
 }

@@ -6,11 +6,15 @@ set (CMAKE_CXX_STANDARD 11)
 
 find_package(Lua REQUIRED)
 find_package(Irrlicht REQUIRED)
+find_package(Assimp REQUIRED)
+find_package(IrrAssimp REQUIRED)
 
 add_library(irrlicht_lua SHARED
 	lua_Irrlicht.cpp
 	lua_IrrlichtDevice.h
 	lua_IrrlichtDevice.cpp
+	lua_IrrAssimp.h
+	lua_IrrAssimp.cpp
 	lua_ISceneManager.h
 	lua_ISceneManager.cpp
 	lua_ISceneNode.h
@@ -64,5 +68,7 @@ target_include_directories(irrlicht_lua PUBLIC
 target_link_libraries(irrlicht_lua
 	${LUA_LIBRARIES}
 	Irrlicht
+	assimp::assimp
+	IrrAssimp
 )
 
