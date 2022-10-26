@@ -6,10 +6,13 @@
 const static char* MetaTableName = "__mat4_meta";
 
 static int new_matrix4(lua_State* L);
+static int delete_matrix4(lua_State* L);
 static int transformVect(lua_State* L);
 static int mul(lua_State* L);
+static int getTranslation(lua_State* L);
 static int setTranslation(lua_State* L);
 static int setRotationDegrees(lua_State* L);
+static int getRotationDegrees(lua_State* L);
 static int setRotationRadians(lua_State* L);
 
 void init_matrix4(lua_State* L)
@@ -19,11 +22,20 @@ void init_matrix4(lua_State* L)
 	lua_pushcfunction(L, new_matrix4);
 	lua_setfield(L, -2, "new");
 
+	lua_pushcfunction(L, delete_matrix4);
+	lua_setfield(L, -2, "delete");
+
 	lua_pushcfunction(L, transformVect);
 	lua_setfield(L, -2, "transformVect");
 
+	lua_pushcfunction(L, getTranslation);
+	lua_setfield(L, -2, "getTranslation");
+
 	lua_pushcfunction(L, setTranslation);
 	lua_setfield(L, -2, "setTranslation");
+
+	lua_pushcfunction(L, getRotationDegrees);
+	lua_setfield(L, -2, "getRotationDegrees");
 
 	lua_pushcfunction(L, setRotationDegrees);
 	lua_setfield(L, -2, "setRotationDegrees");
@@ -55,6 +67,12 @@ int new_matrix4(lua_State* L)
 	return 1;
 }
 
+int delete_matrix4(lua_State* L)
+{
+	delete GetObjPtr<irr::core::matrix4>(L);
+	return 0;
+}
+
 int mul(lua_State* L)
 {
 	//incomplete
@@ -75,9 +93,21 @@ int transformVect(lua_State* L)
 	return 1;
 }
 
+int getTranslation(lua_State* L)
+{
+	push_vector3df(L, GetObjPtr<irr::core::matrix4>(L)->getTranslation());
+	return 1;
+}
+
 int setTranslation(lua_State* L)
 {
 	GetObjPtr<irr::core::matrix4>(L)->setTranslation(check_vector3df(L, 2));
+	return 0;
+}
+
+int getRotationDegrees(lua_State* L)
+{
+	push_vector3df(L, GetObjPtr<irr::core::matrix4>(L)->getRotationDegrees());
 	return 0;
 }
 
