@@ -42,6 +42,7 @@ extern "C" IRRLICHT_LUA_EXPORT int luaopen_irrlicht_lua(lua_State* L)
 	lua_pushcfunction(L, createDevice);
 	lua_setfield(L, -2, "createDevice");
 
+	init_IrrlichtDevice(L);
 	init_IrrAssimp(L);
 	
 	lua_pushinteger(L, irr::EET_MOUSE_INPUT_EVENT);
