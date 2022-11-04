@@ -18,6 +18,7 @@ static int addLightSceneNode(lua_State* L);
 static int addSceneNode(lua_State* L);
 static int getSceneNodeFromName(lua_State* L);
 static int addExternalMeshLoader(lua_State* L);
+static int clear(lua_State* L);
 
 void push_ISceneManager(lua_State* L, irr::scene::ISceneManager* smgr)
 {
@@ -55,6 +56,9 @@ void push_ISceneManager(lua_State* L, irr::scene::ISceneManager* smgr)
 
 	lua_pushcfunction(L, addExternalMeshLoader);
 	lua_setfield(L, -2, "addExternalMeshLoader");
+
+	lua_pushcfunction(L, clear);
+	lua_setfield(L, -2, "clear");
 }
 
 int getMesh(lua_State* L)
@@ -191,5 +195,11 @@ int getSceneNodeFromName(lua_State* L)
 int addExternalMeshLoader(lua_State* L)
 {
 	GetObjPtr<irr::scene::ISceneManager>(L)->addExternalMeshLoader(GetObjPtr<irr::scene::IMeshLoader>(L, 2));
+	return 0;
+}
+
+int clear(lua_State* L)
+{
+	GetObjPtr<irr::scene::ISceneManager>(L)->clear();
 	return 0;
 }
