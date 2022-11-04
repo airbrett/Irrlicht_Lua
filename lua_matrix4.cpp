@@ -9,7 +9,6 @@ static int new_matrix4(lua_State* L);
 static int delete_matrix4(lua_State* L);
 static int transformVect(lua_State* L);
 static int mul(lua_State* L);
-static int gc(lua_State* L);
 static int getTranslation(lua_State* L);
 static int setTranslation(lua_State* L);
 static int setRotationDegrees(lua_State* L);
@@ -52,7 +51,7 @@ void init_matrix4(lua_State* L)
 	lua_setfield(L, -2, "__mul");
 	//lua_pop(L, 1);
 
-	lua_pushcfunction(L, gc);
+	lua_pushcfunction(L, delete_matrix4);
 	lua_setfield(L, -2, "__gc");
 	lua_pop(L, 1);
 
@@ -97,22 +96,6 @@ int mul(lua_State* L)
 
 	lua_pushvalue(L, 1);
 	return 1;
-}
-
-int gc(lua_State* L)
-{
-	lua_getfield(L, -1, "deleted");
-	bool deleted = lua_toboolean(L, -1);
-
-	if (!deleted)
-	{
-		delete GetObjPtr<irr::core::matrix4>(L);
-
-		lua_pushboolean(L, true);
-		lua_setfield(L, -2, "deleted");
-	}
-
-	return 0;
 }
 
 int transformVect(lua_State* L)
