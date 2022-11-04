@@ -4,15 +4,15 @@ irr::core::vector3df to_vector3df(lua_State* L, const int n)
 {
 	irr::core::vector3df vec;
 
-	lua_getfield(L, n, "X");
+	lua_getfield(L, n, "x");
 	vec.X = static_cast<float>(luaL_checknumber(L, -1));
 	lua_pop(L, 1);
 
-	lua_getfield(L, n, "Y");
+	lua_getfield(L, n, "y");
 	vec.Y = static_cast<float>(luaL_checknumber(L, -1));
 	lua_pop(L, 1);
 
-	lua_getfield(L, n, "Z");
+	lua_getfield(L, n, "z");
 	vec.Z = static_cast<float>(luaL_checknumber(L, -1));
 	lua_pop(L, 1);
 
@@ -30,13 +30,13 @@ void push_vector3df(lua_State* L, irr::core::vector3df vec)
 {
 	lua_createtable(L, 0, 3);
 	lua_pushnumber(L, vec.X);
-	lua_setfield(L, -2, "X");
+	lua_setfield(L, -2, "x");
 
 	lua_pushnumber(L, vec.Y);
-	lua_setfield(L, -2, "Y");
+	lua_setfield(L, -2, "y");
 
 	lua_pushnumber(L, vec.Z);
-	lua_setfield(L, -2, "Z");
+	lua_setfield(L, -2, "z");
 }
 
 irr::core::vector2df check_vector2df(lua_State* L, const int n)
@@ -45,11 +45,11 @@ irr::core::vector2df check_vector2df(lua_State* L, const int n)
 
 	luaL_checktype(L, n, LUA_TTABLE);
 
-	lua_getfield(L, n, "X");
+	lua_getfield(L, n, "x");
 	vec.X = static_cast<float>(luaL_checknumber(L, -1));
 	lua_pop(L, 1);
 
-	lua_getfield(L, n, "Y");
+	lua_getfield(L, n, "y");
 	vec.Y = static_cast<float>(luaL_checknumber(L, -1));
 	lua_pop(L, 1);
 
@@ -60,10 +60,10 @@ void push_vector2df(lua_State* L, irr::core::vector2df vec)
 {
 	lua_createtable(L, 0, 3);
 	lua_pushnumber(L, vec.X);
-	lua_setfield(L, -2, "X");
+	lua_setfield(L, -2, "x");
 
 	lua_pushnumber(L, vec.Y);
-	lua_setfield(L, -2, "Y");
+	lua_setfield(L, -2, "y");
 }
 
 irr::core::vector2di check_vector2di(lua_State* L, const int n)
@@ -72,11 +72,11 @@ irr::core::vector2di check_vector2di(lua_State* L, const int n)
 
 	luaL_checktype(L, n, LUA_TTABLE);
 
-	lua_getfield(L, n, "X");
+	lua_getfield(L, n, "x");
 	vec.X = static_cast<irr::s32>(luaL_checkinteger(L, -1));
 	lua_pop(L, 1);
 
-	lua_getfield(L, n, "Y");
+	lua_getfield(L, n, "y");
 	vec.Y = static_cast<irr::s32>(luaL_checkinteger(L, -1));
 	lua_pop(L, 1);
 
@@ -88,10 +88,10 @@ void push_vector2di(lua_State* L, irr::core::vector2di vec)
 {
 	lua_createtable(L, 0, 3);
 	lua_pushinteger(L, vec.X);
-	lua_setfield(L, -2, "X");
+	lua_setfield(L, -2, "x");
 
 	lua_pushinteger(L, vec.Y);
-	lua_setfield(L, -2, "Y");
+	lua_setfield(L, -2, "y");
 }
 
 irr::video::SColor check_scolor(lua_State* L, const int n)

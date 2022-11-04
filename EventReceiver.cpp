@@ -33,10 +33,10 @@ bool EventReceiver::OnEvent(const irr::SEvent& event)
         break;
     case irr::EET_MOUSE_INPUT_EVENT:
         lua_pushinteger(mL, event.MouseInput.X);
-        lua_setfield(mL, -2, "X");
+        lua_setfield(mL, -2, "x");
 
         lua_pushinteger(mL, event.MouseInput.Y);
-        lua_setfield(mL, -2, "Y");
+        lua_setfield(mL, -2, "y");
 
         lua_pushboolean(mL, event.MouseInput.isLeftPressed());
         lua_setfield(mL, -2, "leftPressed");
